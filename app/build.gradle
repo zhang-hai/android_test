@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.sxw.unittestdemo"
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //test
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+}
+
+def AAVersion = "4.4.0";
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    testImplementation 'junit:junit:4.12'
+
+    //robolectric 开源测试ui库
+    testImplementation 'org.robolectric:robolectric:3.8'
+    //robolectric 支持v4包
+    testImplementation 'org.robolectric:shadows-support-v4:3.4-rc2'
+
+    //mockito打桩模拟对象和测试驱动开发,不使用powermock时，使用这种这种方式引入mock库
+    //    testImplementation "org.mockito:mockito-core:2.11.0"
+
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //PowerMock测试框架
+    //引入PowerMock框架，必须对应mockito的版本，这里2.8.0-2.8.9 对应powermock的1.7.x版本
+    testImplementation 'org.mockito:mockito-core:2.8.9'
+    testImplementation 'org.powermock:powermock-module-junit4:1.7.3'
+    testImplementation 'org.powermock:powermock-api-mockito2:1.7.3'
+    //注意这里是mockito2
+    //这里为使用@Rule方式引入要依赖的两个库，@Rule方式引入防止@RunWith被占用
+    testImplementation 'org.powermock:powermock-module-junit4-rule:1.7.3'
+    testImplementation 'org.powermock:powermock-classloading-xstream:1.7.3'
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    // Android annotation
+    annotationProcessor "org.androidannotations:androidannotations:${AAVersion}"
+    implementation"org.androidannotations:androidannotations-api:${AAVersion}"
+
+
+    //dagger2
+    implementation "com.google.dagger:dagger:2.13"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.13"
+
+    //引入retrofit2 + rxjava网络访问框架
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation ('com.squareup.retrofit2:adapter-rxjava2:2.4.0'){
+        exclude module:'rxjava'
+    }
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+}
