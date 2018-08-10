@@ -82,6 +82,7 @@ public class LoginModelImpl extends BaseModel implements ILoginModel {
      * @param password
      * @param callBack
      */
+    @Override
     public void loginRxJava(@NonNull final String userName, @NonNull final String password, @NonNull final IDataCallBack callBack){
         UserBean userBean = new UserBean();
         userBean.setAccount("511101201703290011");
@@ -103,11 +104,13 @@ public class LoginModelImpl extends BaseModel implements ILoginModel {
                         @Override
                         public void onNext(RefreshToken responseBody) {
                             Log.d("LoginModelImpl",responseBody.getData().toString());
+                            callBack.onSuccess(responseBody.getData().toString());
                         }
 
                         @Override
                         public void onError(Throwable e) {
                             Log.d("LoginModelImpl", e.toString());
+                            callBack.onFailed(e.toString());
                         }
 
                         @Override

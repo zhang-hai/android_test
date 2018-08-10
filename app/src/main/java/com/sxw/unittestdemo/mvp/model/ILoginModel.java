@@ -12,4 +12,5 @@ import com.sxw.unittestdemo.mvp.base.IBaseModel;
 
 public interface ILoginModel extends IBaseModel {
     void login(@NonNull String userName,@NonNull String password,@NonNull IDataCallBack callBack);
+    void loginRxJava(@NonNull String userName, @NonNull String password, @NonNull IDataCallBack callBack);
 }

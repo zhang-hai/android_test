@@ -37,7 +37,7 @@ public class LoginPresenter extends BasePresenter<ILoginModel,ILoginView> {
         }
 
         getView().showLoading();
-        model.login(userName,password,new IDataCallBack() {
+        model.loginRxJava(userName,password,new IDataCallBack() {
             @Override
             public void onSuccess(String result) {
                 if (getView() != null){
